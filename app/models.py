@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.db.models.signals import post_save
 # Create your models here.
 
 class user(models.Model):
@@ -8,7 +8,7 @@ class user(models.Model):
       password=models.CharField(max_length=16)
 
 class profile(models.Model):
-    user=models.OneToOneField(user,on_delete=models.CASCADE)
+    user=models.ForeignKey(user,on_delete=models.CASCADE)
     state=models.CharField(max_length=100,null=True)
     district=models.CharField(max_length=100,null=True)
     city=models.CharField(max_length=100,null=True)
@@ -17,7 +17,7 @@ class profile(models.Model):
         return self.user.username
     
 class cart(models.Model):
-    cartref=models.OneToOneField(user,on_delete=models.CASCADE) 
+    cartref=models.ForeignKey(user,on_delete=models.CASCADE) 
     items=models.CharField(max_length=100,null=True)
 
 class product(models.Model):
@@ -26,3 +26,16 @@ class product(models.Model):
       image=models.ImageField()
       cost=models.CharField(max_length=50)
       details=models.CharField(max_length=200)
+
+def create_profile(sender,instance,created,**kwargs):
+    if created:
+        user_profile=profile(user=instance)
+        user_profile.save()
+
+def create_cart(sender,instance,created,**kwargs):
+    if created:
+        cart_ref=cart(cartref=instance)
+        cart_ref.save()
+
+post_save.connect(create_profile,sender=user)
+post_save.connect(create_cart,sender=user)
