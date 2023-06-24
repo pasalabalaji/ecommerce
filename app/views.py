@@ -30,4 +30,4 @@ def add(request):
         userobj=user.objects.get(uniqueid=data["details"])
         cartref=cart(cartref=userobj,items=obj)
         cartref.save()
-        return HttpResponse("user created")
+        return HttpResponse("object added to cart")
