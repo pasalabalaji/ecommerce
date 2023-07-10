@@ -27,15 +27,15 @@ class product(models.Model):
       cost=models.CharField(max_length=50)
       details=models.CharField(max_length=200)
 
-def create_profile(sender,instance,created,**kwargs):
-    if created:
-        user_profile=profile(user=instance)
-        user_profile.save()
+# def create_profile(sender,instance,created,**kwargs):
+#     if created:
+#         user_profile=profile(user=instance)
+#         user_profile.save()
 
-def create_cart(sender,instance,created,**kwargs):
-    if created:
-        cart_ref=cart(cartref=instance)
-        cart_ref.save()
+# def create_cart(sender,instance,created,**kwargs):
+#     if created:
+#         cart_ref=cart(cartref=instance)
+#         cart_ref.save()
 
-post_save.connect(create_profile,sender=user)
-post_save.connect(create_cart,sender=user)
+# post_save.connect(create_profile,sender=user)
+# post_save.connect(create_cart,sender=user)

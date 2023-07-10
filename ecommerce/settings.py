@@ -38,8 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',
+    'captcha',
 ]
-
+SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -124,3 +125,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+RECAPTCHA_PUBLIC_KEY='6LfzDxEnAAAAANSyNFALcsA18ESfcyTK3xkwrmsj'
+RECAPTCHA_PRIVATE_KEY='6LfzDxEnAAAAAFJA6RhNT_6EmCclETSJeKGVRGlx'
+RECAPTCHA_REQUIRED_SCORE=0.9
