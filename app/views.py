@@ -33,6 +33,8 @@ def signup(request):
            decoded_token = jwt.decode(data, 'secret', 'HS256')
            print(decoded_token["otp"])
            if decoded_token["otp"]==form.cleaned_data["otp"]:
+              user_obj=user(username=form.cleaned_data["username"],uniqueid=form.cleaned_data["mobileNumber"],password=form.cleaned_data["password"])
+              user_obj.save()
               return HttpResponse("LOgin successful")
            else:
               message="Please Enter a valid OTP"
@@ -69,8 +71,6 @@ def signup(request):
                 'iat':  datetime.datetime.utcnow()
             }
             encoded_token = jwt.encode(payload, 'secret', 'HS256')
-            # user_obj=user(username=form.cleaned_data["username"],uniqueid=form.cleaned_data["mobileNumber"],password=form.cleaned_data["password"])
-            # user_obj.save()
             status=1
             response=render(request,'signup.html',{"form":form,"status":status})
             response.set_cookie('user_cookie',encoded_token)
