@@ -40,6 +40,10 @@ INSTALLED_APPS = [
     'app',
     'captcha',
 ]
+
+THIRD_PARTY_APPS=[
+        'social_django',
+]
 SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -48,7 +52,16 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.github.GithubOAuth2',
+
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 ROOT_URLCONF = 'ecommerce.urls'
 

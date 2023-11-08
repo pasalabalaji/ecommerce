@@ -3,6 +3,7 @@ import json
 from .models import *
 from django.http import HttpResponse
 from .forms import *
+
 # Create your views here.
 
 def login(request):
@@ -15,6 +16,7 @@ def login(request):
     form=MyForm()
     return render(request,"login.html",{"form":form})
 
+
     
 
 
@@ -24,6 +26,10 @@ def signup(request):
        form=SigninForm(request.POST)
        status=1
        if form.is_valid():
+            if "@" not in form.cleaned_data["mobileNumber"]:
+                error=1
+                status=0
+                return render(request,'signup.html',{"form":form,"status":status,"error":error})
             return render(request,'signup.html',{"form":form,"status":status})
        else:
             status=0

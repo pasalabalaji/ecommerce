@@ -11,9 +11,9 @@ class MyForm(forms.Form):
     password.widget.attrs.update({'class' : 'form-control'})
 
 class SigninForm(forms.Form):
-    mobileNumber=forms.CharField(max_length=10)
+    mobileNumber=forms.CharField(max_length=100)
     username=forms.CharField(max_length=100)
-    otp=forms.CharField()
+    otp=forms.CharField(required=False)
     password=forms.CharField()
     confirmPassword=forms.CharField()
     captcha = ReCaptchaField()

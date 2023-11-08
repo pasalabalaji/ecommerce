@@ -1,3 +1,4 @@
+{{ forms.media }}
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +9,9 @@
     body {
       background-color: #f8f9fa;
     }
-
+    .invalid-feedback {
+            color: red;
+      }
     .container {
       max-width: 400px;
       margin: 50px auto;
@@ -30,9 +33,16 @@
   <h2>Signup</h2>
   <form method="POST" action="signup">
     {% csrf_token %}
+
+    {% if status == 1 %}
+    <p>Please Enter OTP sent to your mail</p>
+    {% endif %}
     <div class="form-group">
-      <label for="email">Email/Mobile number</label>
+      <label for="email">Email</label>
       {{ form.mobileNumber }}
+      {% if error == 1 %}
+      <p style="color: red;">Please provide valid Email</p>
+      {% endif %}
       <!-- <input type="email" class="form-control" id="email" maxlength=100 placeholder="Enter email/Mobile number"> -->
     </div>
     <div class="form-group">
@@ -41,7 +51,7 @@
       <!-- <input type="text" class="form-control" id="username" maxlength=100 placeholder="Enter username"> -->
     </div>
     <div class="form-group">
-      {% if status == 1%}
+      {% if status == 1 %}
       <label for="username">OTP</label>
       {{ form.otp }}
       {% endif %}
@@ -58,19 +68,25 @@
       {{ form.confirmPassword }}
       <!-- <input type="password" class="form-control" id="confirm-password" placeholder="Confirm password"> -->
     </div>
-    <div class="form-group">
-      {{ form.captcha }}
-    </div>
-    {% for error in form.captcha.errors %}
-    <p>{{ error }}</p>
-    {% endfor %}
+    {% if status != 1 %}
+        <div class="form-group">
+          {{ form.captcha }}
+        </div>
+        {% for error in form.errors %}
+        <p>{{ error }}</p>
+        {% endfor %}
+        {% for error in form.captcha.errors %}
+        <p>{{ error }}</p>
+        {% endfor %}
+    {% endif %}
     <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
   </form>
   <p class="text-center mt-3">Already have an account? <a href="{% url 'login' %}">Login</a></p>
 </div>
 
-<!-- Bootstrap JS -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Bootstrap JS  -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js">
+</script>
 
 </body>
 </html>
