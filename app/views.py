@@ -7,6 +7,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 # Create your views here.
 import jwt,datetime
+import random
 
 def login(request):
     if(request.method=="POST"):
@@ -27,6 +28,9 @@ def signup(request):
     if(request.method=="POST"):
        form=SigninForm(request.POST)
        status=1
+       if(request.COOKIES.get('user_cookie') is not None) and form.is_valid():
+           print(form.cleaned_data["otp"])
+           return render(request,'signup.html',{"form":form,"status":status})
        if form.is_valid():
             if "@" not in form.cleaned_data["mobileNumber"]:
                 error=1
@@ -45,7 +49,7 @@ def signup(request):
                 status=0
                 return render(request,'signup.html',{"form":form,"status":status,"error":error})
             subject = " OTP For signup of BCart  "
-            message = "Your OTP for login is xxxx"
+            message = "Your OTP for login is "+str(random.randint(1000,9999))
             email_from = settings.EMAIL_HOST_USER
             recipient_list = [form.cleaned_data["mobileNumber"]]
             send_mail( subject, message, email_from, recipient_list )
@@ -53,15 +57,17 @@ def signup(request):
                 'email': form.cleaned_data["mobileNumber"],
                 'password': form.cleaned_data["password"],
                 'username': form.cleaned_data["username"],
-                'otp': "xxxx",
+                'otp': str(random.randint(1000,9999)),
                 'exp': datetime.datetime.utcnow()+datetime.timedelta(minutes=60),
                 'iat':  datetime.datetime.utcnow()
             }
             encoded_token = jwt.encode(payload, 'secret', 'HS256')
-            response=render(request,'signup.html',{"message":"Account created successfully..."})
+            # user_obj=user(username=form.cleaned_data["username"],uniqueid=form.cleaned_data["mobileNumber"],password=form.cleaned_data["password"])
+            # user_obj.save()
+            status=1
+            response=render(request,'signup.html',{"form":form,"status":status})
             response.set_cookie('user_cookie',encoded_token)
             return response
-            # return render(request,'signup.html',{"form":form,"status":status})
        else:
             status=0
             return render(request,'signup.html',{"form":form,"status":status})
