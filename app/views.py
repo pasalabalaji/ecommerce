@@ -29,8 +29,14 @@ def signup(request):
        form=SigninForm(request.POST)
        status=1
        if(request.COOKIES.get('user_cookie') is not None) and form.is_valid():
-           print(form.cleaned_data["otp"])
-           return render(request,'signup.html',{"form":form,"status":status})
+           data=request.COOKIES["user_cookie"]
+           decoded_token = jwt.decode(data, 'secret', 'HS256')
+           print(decoded_token["otp"])
+           if decoded_token["otp"]==form.cleaned_data["otp"]:
+              return HttpResponse("LOgin successful")
+           else:
+              message="Please Enter a valid OTP"
+              return render(request,'signup.html',{"form":form,"status":status,"message":message})
        if form.is_valid():
             if "@" not in form.cleaned_data["mobileNumber"]:
                 error=1
@@ -49,7 +55,8 @@ def signup(request):
                 status=0
                 return render(request,'signup.html',{"form":form,"status":status,"error":error})
             subject = " OTP For signup of BCart  "
-            message = "Your OTP for login is "+str(random.randint(1000,9999))
+            otp=str(random.randint(1000,9999))
+            message = "Your OTP for login is "+otp
             email_from = settings.EMAIL_HOST_USER
             recipient_list = [form.cleaned_data["mobileNumber"]]
             send_mail( subject, message, email_from, recipient_list )
@@ -57,7 +64,7 @@ def signup(request):
                 'email': form.cleaned_data["mobileNumber"],
                 'password': form.cleaned_data["password"],
                 'username': form.cleaned_data["username"],
-                'otp': str(random.randint(1000,9999)),
+                'otp': otp,
                 'exp': datetime.datetime.utcnow()+datetime.timedelta(minutes=60),
                 'iat':  datetime.datetime.utcnow()
             }

@@ -30,7 +30,6 @@
 <body>
 
 <div class="container">
-  <h1>{{ message }}</h1>
   <h2>Signup</h2>
   <form method="POST" action="signup">
     {% csrf_token %}
@@ -59,6 +58,7 @@
       {% if status == 1 %}
       <label for="username">OTP</label>
       {{ form.otp }}
+      <p style="color: red;"> {{ message }}</p>
       {% endif %}
       <!-- <input type="text" class="form-control" id="username" maxlength=100 placeholder="Please Enter OTP">
       --></div> 
