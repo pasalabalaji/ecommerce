@@ -30,6 +30,7 @@
 <body>
 
 <div class="container">
+  <h1>{{ message }}</h1>
   <h2>Signup</h2>
   <form method="POST" action="signup">
     {% csrf_token %}
@@ -48,6 +49,9 @@
     <div class="form-group">
       <label for="username">Username:</label>
       {{ form.username }}
+      {% if error == 2 %}
+      <p style="color: red;">Username must contains 6 characters</p>
+      {% endif %}
       <!-- <input type="text" class="form-control" id="username" maxlength=100 placeholder="Enter username"> -->
     </div>
     <div class="form-group">
@@ -61,11 +65,17 @@
     <div class="form-group">
       <label for="password">Password:</label>
       {{ form.password }}
+      {% if error == 3 %}
+      <p style="color: red;">Password must contains 8 characters</p>
+      {% endif %}
       <!-- <input type="password" class="form-control" id="password" maxlength=16 placeholder="Enter password">
       --></div> 
     <div class="form-group">
       <label for="confirm-password">Confirm Password:</label>
       {{ form.confirmPassword }}
+      {% if error == 4 %}
+      <p style="color: red;">Password and Confirm Password should be same</p>
+      {% endif %}
       <!-- <input type="password" class="form-control" id="confirm-password" placeholder="Confirm password"> -->
     </div>
     {% if status != 1 %}
