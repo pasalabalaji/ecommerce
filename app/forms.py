@@ -5,7 +5,7 @@ from captcha.widgets import ReCaptchaV3
 class MyForm(forms.Form):
     username=forms.CharField()
     password=forms.CharField()
-    captcha = ReCaptchaField(widget=ReCaptchaV3)
+    captcha = ReCaptchaField()
 
     username.widget.attrs.update({'class' : 'form-control'})
     password.widget.attrs.update({'class' : 'form-control'})

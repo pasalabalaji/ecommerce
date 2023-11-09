@@ -32,6 +32,7 @@
             <form method="post" action="validate">
               {% csrf_token %}
               <p style="color: green;">{{ message }}</p>
+              <p style="color: red;">{{ error_message }}</p>
               <div class="form-group">
                 <label for="username">Username</label>
                 {{ form.username }}

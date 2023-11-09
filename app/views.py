@@ -13,7 +13,14 @@ def login(request):
     if(request.method=="POST"):
         form=MyForm(request.POST)
         if form.is_valid():
-            return render(request,"login.html",{"form":form})
+            username=form.cleaned_data["username"]
+            password=form.cleaned_data["password"]
+            user_obj=user.objects.filter(username=username,password=password)
+            if len(user_obj)==0:
+                error_message="User not found"
+                return render(request,"login.html",{"form":form,"error_message":error_message})
+            else:
+                return HttpResponse("Login successful...")
         else:
             return render(request,"login.html",{"form":form})
     if(request.COOKIES.get('user_cookie') is not None):
@@ -34,7 +41,6 @@ def signup(request):
     if(request.method=="POST"):
        form=SigninForm(request.POST)
        status=1
-       print(form.is_valid())
        if(request.COOKIES.get('user_cookie') is not None): 
            form.is_valid()
            data=request.COOKIES["user_cookie"]
@@ -105,7 +111,10 @@ def signup(request):
        status=0
        form=SigninForm()
        return render(request,'signup.html',{"form":form,"status":status})
-    
+
+
+
+
 def create_user(request):
     if(request.method=="POST"):
         data=json.loads(request.body)
