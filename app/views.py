@@ -20,7 +20,7 @@ def login(request):
                 error_message="User not found"
                 return render(request,"login.html",{"form":form,"error_message":error_message})
             else:
-                return HttpResponse("Login successful...")
+                return render(request,"index.html")
         else:
             return render(request,"login.html",{"form":form})
     if(request.COOKIES.get('user_cookie') is not None):

@@ -8,4 +8,5 @@ urlpatterns=[
     path('create_user',create_user),
     path('add',add),
     path('validate',login),
+    path('logout_user',login),
 ]
