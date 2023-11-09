@@ -16,6 +16,12 @@ def login(request):
             return render(request,"login.html",{"form":form})
         else:
             return render(request,"login.html",{"form":form})
+    if(request.COOKIES.get('user_cookie') is not None):
+        form=MyForm()
+        print("working")
+        response=render(request,"login.html",{"form":form})
+        response.delete_cookie('user_cookie')
+        return response
     form=MyForm()
     return render(request,"login.html",{"form":form})
 
@@ -28,18 +34,35 @@ def signup(request):
     if(request.method=="POST"):
        form=SigninForm(request.POST)
        status=1
-       if(request.COOKIES.get('user_cookie') is not None) and form.is_valid():
+       print(form.is_valid())
+       if(request.COOKIES.get('user_cookie') is not None): 
+           form.is_valid()
            data=request.COOKIES["user_cookie"]
            decoded_token = jwt.decode(data, 'secret', 'HS256')
-           print(decoded_token["otp"])
            if decoded_token["otp"]==form.cleaned_data["otp"]:
               user_obj=user(username=form.cleaned_data["username"],uniqueid=form.cleaned_data["mobileNumber"],password=form.cleaned_data["password"])
               user_obj.save()
-              return HttpResponse("LOgin successful")
+              form=MyForm()
+              message="You Had Registered Successfully,Please Login"
+              response=render(request,"login.html",{"form":form,"message":message})
+              response.delete_cookie("user_cookie")
+              return response
            else:
-              message="Please Enter a valid OTP"
+              message="You have Entered an invalid valid OTP,Please Try Again..."
               return render(request,'signup.html',{"form":form,"status":status,"message":message})
+         
        if form.is_valid():
+            user_obj_name=user.objects.filter(username=form.cleaned_data["username"])
+            user_obj_mail=user.objects.filter(uniqueid=form.cleaned_data["mobileNumber"])
+            if len(user_obj_name)>=1:
+                error=5
+                status=0
+                return render(request,'signup.html',{"form":form,"status":status,"error":error})
+            elif len(user_obj_mail)>=1:
+                error=6
+                status=0
+                return render(request,'signup.html',{"form":form,"status":status,"error":error})
+            
             if "@" not in form.cleaned_data["mobileNumber"]:
                 error=1
                 status=0

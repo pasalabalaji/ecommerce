@@ -13,6 +13,12 @@
       margin-top: 100px;
     }
   </style>
+    <script type="text/javascript">
+        history.pushState(null, null, document.URL);
+        window.addEventListener('popstate', function () {
+        history.pushState(null, null, document.URL);
+        });
+    </script>
 </head>
 <body>
   <div class="container">
@@ -25,6 +31,7 @@
           <div class="card-body">
             <form method="post" action="validate">
               {% csrf_token %}
+              <p style="color: green;">{{ message }}</p>
               <div class="form-group">
                 <label for="username">Username</label>
                 {{ form.username }}

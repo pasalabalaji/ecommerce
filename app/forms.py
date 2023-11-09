@@ -16,7 +16,7 @@ class SigninForm(forms.Form):
     otp=forms.CharField(required=False)
     password=forms.CharField()
     confirmPassword=forms.CharField()
-    # captcha = ReCaptchaField()
+    captcha = ReCaptchaField()
 
     mobileNumber.widget.attrs.update({'class' : 'form-control'})
     password.widget.attrs.update({'class' : 'form-control'})
