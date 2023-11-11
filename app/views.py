@@ -38,15 +38,15 @@ def login(request):
         decoded_token = jwt.decode(data, 'secret', 'HS256')
         if decoded_token["login_status"]==1:
            return render(request,'index.html')
-        
-        response=render(request,"login.html",{"form":form})
-        response.delete_cookie('user_cookie')
-        return response
     form=MyForm()
     return render(request,"login.html",{"form":form})
 
 
-    
+def logout(request):
+    form=MyForm()
+    response=render(request,"login.html",{"form":form})
+    response.delete_cookie('user_cookie')
+    return response  
 
 
 
