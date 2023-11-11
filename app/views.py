@@ -20,12 +20,25 @@ def login(request):
                 error_message="User not found"
                 return render(request,"login.html",{"form":form,"error_message":error_message})
             else:
-                return render(request,"index.html")
+                payload={
+                'username': username,
+                'login_status': 1,
+                'exp': datetime.datetime.utcnow()+datetime.timedelta(minutes=60),
+                'iat':  datetime.datetime.utcnow()
+                }
+                encoded_token = jwt.encode(payload, 'secret', 'HS256')
+                response=render(request,'index.html')
+                response.set_cookie('user_cookie',encoded_token)
+                return response
         else:
             return render(request,"login.html",{"form":form})
     if(request.COOKIES.get('user_cookie') is not None):
         form=MyForm()
-        print("working")
+        data=request.COOKIES["user_cookie"]
+        decoded_token = jwt.decode(data, 'secret', 'HS256')
+        if decoded_token["login_status"]==1:
+           return render(request,'index.html')
+        
         response=render(request,"login.html",{"form":form})
         response.delete_cookie('user_cookie')
         return response
