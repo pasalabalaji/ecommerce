@@ -7,12 +7,18 @@ class user(models.Model):
       uniqueid=models.CharField(primary_key=True,max_length=100)
       password=models.CharField(max_length=16)
 
+class user_products(models.Model):
+      uid=models.ForeignKey(user,on_delete=models.CASCADE)
+      pid=models.CharField(max_length=10)
+
 class profile(models.Model):
     user=models.ForeignKey(user,on_delete=models.CASCADE)
     state=models.CharField(max_length=100,null=True)
     district=models.CharField(max_length=100,null=True)
     city=models.CharField(max_length=100,null=True)
     pincode=models.CharField(max_length=6,null=True)
+    mobile_number=models.CharField(max_length=10,null=True)
+    premium=models.CharField(max_length=3,null=True)
     def __str__(self):
         return self.user.username
     
@@ -22,10 +28,12 @@ class cart(models.Model):
 
 class product(models.Model):
       producttype=models.CharField(max_length=30,null=True)
-      name=models.CharField(max_length=200)
-      image=models.ImageField()
-      cost=models.CharField(max_length=50)
-      details=models.CharField(max_length=200)
+      name=models.CharField(max_length=200,null=True)
+      pid=models.CharField(max_length=30,null=True)
+      image=models.CharField(max_length=300,null=True)
+      cost=models.CharField(max_length=50,null=True)
+      details=models.CharField(max_length=200,null=True)
+      rating=models.CharField(max_length=10,null=True)
 
 # def create_profile(sender,instance,created,**kwargs):
 #     if created:

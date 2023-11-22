@@ -9,4 +9,7 @@ urlpatterns=[
     path('add',add),
     path('validate',login),
     path('logout_user',logout),
+    path('upload_product',upload_product),
+    path('sell_product',sell_product),
+    path('index',login)
 ]

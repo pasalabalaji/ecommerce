@@ -3,110 +3,110 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <title>Recommended Products</title>
+  <title>Product Information Form</title>
   <style>
     body {
-      background-color: #f8f9fa; /* Set a light background color */
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
-    .green-button {
-      background-color: #28a745; /* Set a green background color */
-      border-color: #28a745; /* Set a green border color */
-      color: #fff; /* Set white text color */
+
+    form {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 300px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 12px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #45a049;
     }
   </style>
 </head>
 <body>
-
-<div class="container-flex mt-5">
-  <h2 class="mb-4">Recommended Products</h2>
-  
-  <div class="row">
-    <div class="col-lg-2 col-md-4 mb-4">
-      <div class="card">
-        <a href="#"> <img src="https://placehold.it/400x300" class="card-img-top" alt="Product 1">
-        </a>
-        <div class="card-body">
-          <h5 class="card-title">Product 1</h5>
-          <p class="card-text">Description of Product 1.</p>
-          
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <a class="navbar-brand" href="#">E-Buy</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav mr-auto">
+           
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+              </svg></a>
+           </li>
+           <li class="nav-item">
+            <a class="nav-link" href="#">Profile</a>
+           </li>
+           <li class="nav-item">
+              <a class="nav-link" href="logout_user">Logout</a>
+           </li>
+           <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               More Options
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">Contact Us</a>
+              <a class="dropdown-item" href="#">Sell Products</a>
+            </div>
+          </li>
+          </ul>
         </div>
-      </div>
-    </div>
+      </nav>
+  <form>
+    <label for="productType">Product Type:</label>
+    <input type="text" id="productType" name="productType" required>
 
-    <div class="col-lg-2 col-md-4 mb-4">
-      <div class="card">
-        <a href="#"> <img src="https://placehold.it/400x300" class="card-img-top" alt="Product 1">
-        </a><div class="card-body">
-          <h5 class="card-title">Product 1</h5>
-          <p class="card-text">Description of Product 1.</p>
-          
-        </div>
-      </div>
-    </div>
+    <label for="productName">Product Name:</label>
+    <input type="text" id="productName" name="productName" required>
 
-    <div class="col-lg-2 col-md-4 mb-4">
-      <div class="card">
-        <a href="#"> <img src="https://placehold.it/400x300" class="card-img-top" alt="Product 1">
-        </a><div class="card-body">
-          <h5 class="card-title">Product 1</h5>
-          <p class="card-text">Description of Product 1.</p>
-          
-        </div>
-      </div>
-    </div>
+    <label for="productImage">Product Image URL:</label>
+    <input type="url" id="productImage" name="productImage" required>
 
-    <div class="col-lg-2 col-md-4 mb-4">
-      <div class="card">
-        <a href="#"> <img src="https://placehold.it/400x300" class="card-img-top" alt="Product 1">
-        </a><div class="card-body">
-          <h5 class="card-title">Product 2</h5>
-          <p class="card-text">Description of Product 2.</p>
-         
-        </div>
-      </div>
-    </div>
+    <label for="productCost">Product Cost:</label>
+    <input type="number" id="productCost" name="productCost" required>
 
-    <div class="col-lg-2 col-md-4 mb-4">
-      <div class="card">
-        <a href="#"> <img src="https://placehold.it/400x300" class="card-img-top" alt="Product 1">
-        </a><div class="card-body">
-          <h5 class="card-title">Product 3</h5>
-          <p class="card-text">Description of Product 3.</p>
-        
-        </div>
-      </div>
-    </div>
+    <label for="productDetails">Product Details:</label>
+    <textarea id="productDetails" name="productDetails" rows="4" required></textarea>
 
-    <div class="col-lg-2 col-md-4 mb-4">
-      <div class="card">
-        <a href="#"> <img src="https://placehold.it/400x300" class="card-img-top" alt="Product 1">
-        </a><div class="card-body">
-          <h5 class="card-title">Product 4</h5>
-          <p class="card-text">Description of Product 4.</p>
-          
-        </div>
-      </div>
-    </div>
-
-    <div class="col-lg-2 col-md-4 mb-4">
-      <div class="card">
-        <a href="#"> <img src="https://placehold.it/400x300" class="card-img-top" alt="Product 1">
-        </a><div class="card-body">
-          <h5 class="card-title">Product 5</h5>
-          <p class="card-text">Description of Product 5.</p>
-        </div>
-      </div>
-    </div>
-
-
-
-  </div>
-</div>
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <button type="submit">Submit</button>
+  </form>
 
 </body>
 </html>

@@ -148,3 +148,10 @@ def add(request):
         cartref=cart(cartref=userobj,items=obj)
         cartref.save()
         return HttpResponse("object added to cart")
+    
+def upload_product(request):
+    pass
+
+def sell_product(request):
+    if(request.COOKIES.get('user_cookie') is not None):
+       return render(request,"sellproduct.html")
