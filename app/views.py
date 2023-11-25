@@ -150,7 +150,21 @@ def add(request):
         return HttpResponse("object added to cart")
     
 def upload_product(request):
-    pass
+    if(request.COOKIES.get('user_cookie') is not None):
+        productType=request.POST["productType"]
+        productName=request.POST["productName"]
+        productImageUrl=request.POST["productImage"]
+        productCost=request.POST["productCost"]
+        productDetails=request.POST["productDetails"]
+        data=request.COOKIES["user_cookie"]
+        decoded_token = jwt.decode(data, 'secret', 'HS256')
+        pid=decoded_token["username"]+productName+productCost
+        user_obj=user.objects.get(username=decoded_token["username"])
+        pObj=product(user_product=user_obj,producttype=productType,name=productName,pid=pid,image=productImageUrl,cost=productCost,details=productDetails)
+        pObj.save()
+        print(user_obj)
+        message="Product is uploaded..."
+        return render(request,"sellproduct.html",{"message":message})
 
 def sell_product(request):
     if(request.COOKIES.get('user_cookie') is not None):

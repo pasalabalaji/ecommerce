@@ -27,6 +27,7 @@ class cart(models.Model):
     items=models.CharField(max_length=100,null=True)
 
 class product(models.Model):
+      user_product=models.ForeignKey(user,on_delete=models.CASCADE,null=True)
       producttype=models.CharField(max_length=30,null=True)
       name=models.CharField(max_length=200,null=True)
       pid=models.CharField(max_length=30,null=True)
