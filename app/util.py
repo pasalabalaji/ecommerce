@@ -10,12 +10,12 @@ import csv
 
 def create_pkl():
     try:
-        # data=product.objects.all()
-        # for i in data:
-        #     fields=[str(i.producttype),str(i.name),str(i.cost),str(i.details)]
-        #     with open('data.csv', 'a') as f:
-        #         writer = csv.writer(f)
-        #         writer.writerow(fields)
+        data=product.objects.all()
+        for i in data:
+            fields=[str(i.pid),str(i.producttype),str(i.name),str(i.cost),str(i.details)]
+            with open('data.csv', 'a') as f:
+                writer = csv.writer(f)
+                writer.writerow(fields)
         
         products=pd.read_csv("data.csv")
         products=products.dropna()
@@ -34,7 +34,11 @@ def create_pkl():
         
         products["tags"]=products["details"]+products["name"]+str(products["price"])+products["details"]
 
-        print(products["tags"])
+        preprocessedDf=products[["id","tags"]]
+        preprocessedDf=preprocessedDf.dropna()
+
+        preprocessedDf["tags"]=preprocessedDf["tags"].apply(lambda x:" ".join(x))
+        preprocessedDf["tags"]=preprocessedDf["tags"].apply(lambda x:x.lower())
         return 1
     except Exception as e:
         print(e)
