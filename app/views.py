@@ -162,10 +162,14 @@ def upload_product(request):
         user_obj=user.objects.get(username=decoded_token["username"])
         pObj=product(user_product=user_obj,producttype=productType,name=productName,pid=pid,image=productImageUrl,cost=productCost,details=productDetails)
         pObj.save()
-        print(user_obj)
         message="Product is uploaded..."
         return render(request,"sellproduct.html",{"message":message})
 
 def sell_product(request):
     if(request.COOKIES.get('user_cookie') is not None):
        return render(request,"sellproduct.html")
+
+from .util import *
+
+def create_model(request):
+    return HttpResponse(create_pkl())
