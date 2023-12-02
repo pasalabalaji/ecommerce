@@ -12,5 +12,5 @@ urlpatterns=[
     path('upload_product',upload_product),
     path('sell_product',sell_product),
     path('index',login),
-    path('create_model',create_model),
+    path('search_product',search_product),
 ]

@@ -18,7 +18,7 @@ def helper(text):
         y.append(ps.stem(i))
     return " ".join(y)
 
-def create_pkl():
+def create_pkl(product):
     try:
         # data=product.objects.all()
         # for i in data:
@@ -35,7 +35,7 @@ def create_pkl():
               "type":"x",
               "name":"y",
               "price":"0",
-              "details":"samsung mobiles",
+              "details": product,
         }
         products=products._append(data,ignore_index=True)
         
@@ -72,7 +72,6 @@ def create_pkl():
         similarity=similarities[len(similarities)-1]
         similarity=sorted(list(enumerate(similarity[:len(similarity)-1])),reverse=True,key=lambda x:x[1])
         # print(preprocessedDf["pid"][similarity[0][0]])
-        print(similarity)
         similar_products=[]
         count=0
         for i in similarity:

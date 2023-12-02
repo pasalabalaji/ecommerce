@@ -9,6 +9,7 @@ from django.core.mail import send_mail
 import jwt,datetime
 import random
 
+
 def login(request):
     if(request.method=="POST"):
         form=MyForm(request.POST)
@@ -171,5 +172,10 @@ def sell_product(request):
 
 from .util import *
 
-def create_model(request):
-    return HttpResponse(create_pkl())
+def search_product(request):
+    productName=request.GET["product"]
+    similar_id=create_pkl(productName)
+    objs=[]
+    for i in similar_id:
+        objs.append(product.objects.get(pid=i))
+    return render(request,"sr.html",{"objects":objs})

@@ -31,42 +31,25 @@
 <body>
 
 <div class="container">
-  <h2 class="mb-4">Recommended Products</h2>
-
+  <h2 class="mb-4">Search results</h2>
+  {% for obj in objects %}
   <div class="row">
     <div class="col-md-4">
       <div class="product-card">
         <img src="https://via.placeholder.com/300" alt="Product 1" class="product-image">
         <div class="product-details">
-          <h5>Product 1</h5>
-          <p>Description of Product 1.</p>
-          <button class="btn btn-primary">View Details</button>
+          <h5>{{ obj.name }}</h5>
+          <p>{{ obj.details }}</p>
+          <button class="btn btn-primary" style="background-color: green; border-color: green;"><a href="{{ obj.pid }}" style="color: white; text-decoration: none;">Check product</a></button>
         </div>
       </div>
     </div>
+</div>
+    {% endfor %}
 
-    <div class="col-md-4">
-      <div class="product-card">
-        <img src="https://via.placeholder.com/300" alt="Product 2" class="product-image">
-        <div class="product-details">
-          <h5>Product 2</h5>
-          <p>Description of Product 2.</p>
-          <button class="btn btn-primary">View Details</button>
-        </div>
-      </div>
-    </div>
 
-    <div class="col-md-4">
-      <div class="product-card">
-        <img src="https://via.placeholder.com/300" alt="Product 3" class="product-image">
-        <div class="product-details">
-          <h5>Product 3</h5>
-          <p>Description of Product 3.</p>
-          <button class="btn btn-primary">View Details</button>
-        </div>
-      </div>
-    </div>
-  </div>
+  
+ 
 
 </div>
 
