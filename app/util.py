@@ -35,10 +35,10 @@ def create_pkl():
               "type":"x",
               "name":"y",
               "price":"0",
-              "details":"cotton shirt",
+              "details":"samsung mobiles",
         }
         products=products._append(data,ignore_index=True)
-        print(products)
+        
         def make_string(obj):
             word=""
             for i in obj:
@@ -69,8 +69,19 @@ def create_pkl():
         vectors=cv.fit_transform(preprocessedDf["tags"]).toarray()
         similarities=cosine_similarity(vectors)
        
-        print(similarities)
-        return 1
+        similarity=similarities[len(similarities)-1]
+        similarity=sorted(list(enumerate(similarity[:len(similarity)-1])),reverse=True,key=lambda x:x[1])
+        # print(preprocessedDf["pid"][similarity[0][0]])
+        print(similarity)
+        similar_products=[]
+        count=0
+        for i in similarity:
+            if count>2:
+               break
+            elif i[1]!=0:
+                similar_products.append(preprocessedDf["pid"][i[0]])
+                count+=1
+        return similar_products
     except Exception as e:
         print(e)
         return 0
