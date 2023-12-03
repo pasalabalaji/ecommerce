@@ -6,6 +6,10 @@ class user(models.Model):
       username=models.CharField(max_length=100)
       uniqueid=models.CharField(primary_key=True,max_length=100)
       password=models.CharField(max_length=16)
+      
+class user_searchs(models.Model):
+      userobj=models.ForeignKey(user,on_delete=models.CASCADE)
+      searchs=models.CharField(max_length=100)
 
 class user_products(models.Model):
       uid=models.ForeignKey(user,on_delete=models.CASCADE)

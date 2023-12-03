@@ -174,6 +174,11 @@ from .util import *
 
 def search_product(request):
     productName=request.GET["product"]
+    data=request.COOKIES["user_cookie"]
+    decoded_token = jwt.decode(data, 'secret', 'HS256')
+    uname=decoded_token["username"]
+    searchobj=user_searchs(userobj=user.objects.get(username=uname),searchs=productName)
+    searchobj.save()
     similar_id=create_pkl(productName)
     objs=[]
     for i in similar_id:
