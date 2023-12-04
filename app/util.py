@@ -18,7 +18,7 @@ def helper(text):
         y.append(ps.stem(i))
     return " ".join(y)
 
-def create_pkl(product):
+def create_pkl(product_search):
     try:
         # data=product.objects.all()
         # for i in data:
@@ -35,7 +35,7 @@ def create_pkl(product):
               "type":"x",
               "name":"y",
               "price":"0",
-              "details": product,
+              "details": product_search,
         }
         products=products._append(data,ignore_index=True)
         
@@ -83,4 +83,4 @@ def create_pkl(product):
         return similar_products
     except Exception as e:
         print(e)
-        return 0
+        return HttpResponse("Something went wrong...please try again later...")
