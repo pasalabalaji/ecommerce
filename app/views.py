@@ -177,8 +177,14 @@ def search_product(request):
     data=request.COOKIES["user_cookie"]
     decoded_token = jwt.decode(data, 'secret', 'HS256')
     uname=decoded_token["username"]
-    searchobj=user_searchs(userobj=user.objects.get(username=uname),searchs=productName)
-    searchobj.save()
+    searchs=user_searchs.objects.filter(searchs=productName)
+    user_search=user_searchs.objects.filter(userobj=user.objects.get(username=uname).uniqueid)
+    if len(user_search)>=10:
+       for i in range(len(user_search)-9):
+            user_searchs.objects.filter(searchs=user_search[i].searchs,userobj=user_search[i].userobj).delete()
+    if len(searchs)==0:
+       searchobj=user_searchs(userobj=user.objects.get(username=uname),searchs=productName)
+       searchobj.save()
     similar_id=create_pkl(productName)
     objs=[]
     for i in similar_id:
