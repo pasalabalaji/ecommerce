@@ -28,8 +28,23 @@ def login(request):
                 'iat':  datetime.datetime.utcnow()
                 }
                 encoded_token = jwt.encode(payload, 'secret', 'HS256')
-                response=render(request,'index.html')
-                response.set_cookie('user_cookie',encoded_token)
+                user_searches=user_searchs.objects.filter(userobj=user.objects.get(username=username,password=password))
+                search_key=""
+                similar_id=[]
+                for i in user_searches:
+                    search_key+=" "+i.searchs
+                    if search_key!="":
+                       similar_id=create_pkl(search_key)
+                print("working")
+                if len(similar_id)==0:
+                   response=render(request,'index.html')
+                   response.set_cookie('user_cookie',encoded_token)
+                else:
+                    objs=[]
+                    for i in similar_id:
+                        objs.append(product.objects.get(pid=i))
+                    response=render(request,'index.html',{"objs": objs})
+                    response.set_cookie('user_cookie',encoded_token)
                 return response
         else:
             return render(request,"login.html",{"form":form})
@@ -190,3 +205,22 @@ def search_product(request):
     for i in similar_id:
         objs.append(product.objects.get(pid=i))
     return render(request,"sr.html",{"objects":objs})
+
+
+#DEC
+#1st week
+#11/12/23-sections 1 all years-monday
+#12/12/23-sections 2 all years-tuesday
+#13/12/23-sections 3 all years-wednesday
+#14/12/23-sections 4 all years-thursday
+#15/12/23-sections 5 all years-friday
+#16/12/23-section 6 all years-saturday
+#17/12/23-type of Event decision and date announcement-sunday
+#2nd wek
+#17/12/23 to 23/12/23 mid exams
+#23/12/23-Event day
+#3rd and 4th weeks
+#sem exams
+#5th week
+#07/01/24-project expo announcement
+

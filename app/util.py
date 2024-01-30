@@ -18,9 +18,13 @@ def helper(text):
         y.append(ps.stem(i))
     return " ".join(y)
 
+def transform(vectors):
+    cv=CountVectorizer(max_features=5000,stop_words="english")
+    return cv.fit_transform(vectors).toarray()
+
 def create_pkl(product_search):
     try:
-        # data=product.objects.all()
+        data=product.objects.all()
         # for i in data:
         #     fields=[str(i.pid),str(i.producttype),str(i.name),str(i.cost),str(i.details)]
         #     with open('data.csv', 'a') as f:
@@ -65,8 +69,9 @@ def create_pkl(product_search):
         preprocessedDf["tags"]=preprocessedDf["tags"].apply(lambda x:x.lower())
         preprocessedDf["tags"]=preprocessedDf["tags"].apply(lambda x:helper(x))
         
-        cv=CountVectorizer(max_features=5000,stop_words="english")
-        vectors=cv.fit_transform(preprocessedDf["tags"]).toarray()
+        
+        vectors=transform(preprocessedDf["tags"])
+        # vectors=cv.fit_transform(preprocessedDf["tags"]).toarray()
         similarities=cosine_similarity(vectors)
        
         similarity=similarities[len(similarities)-1]
@@ -75,7 +80,7 @@ def create_pkl(product_search):
         similar_products=[]
         count=0
         for i in similarity:
-            if count>2:
+            if count>5:
                break
             elif i[1]!=0:
                 similar_products.append(preprocessedDf["pid"][i[0]])

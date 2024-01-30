@@ -8,6 +8,7 @@
   <style>
     body{
       padding-top: 56px; 
+      font-family: Arial, Helvetica, sans-serif;
     }
     .content {
       flex: 1;
@@ -122,6 +123,21 @@
   <h2 class="mb-4">Recommended Products</h2>
   
   <div class="row">
+    {% for obj in objs %}
+    <div class="col-lg-3 col-md-4 mb-4">
+      <div class="card">
+        <a href="#"> <img src="https://www.reliancedigital.in/medias/OnePlus-Nord-CE2-Lite-5G-CLP-Banner-27-04-2023-Mobile.jpg?context=bWFzdGVyfGltYWdlc3w3MDUzMXxpbWFnZS9qcGVnfGltYWdlcy9oZTcvaDI0LzEwMDYzMDU0ODMxNjQ2LmpwZ3w1Mzk5Y2RmYjQzNGEwZWFlM2Y3Yzc0NTc2OGI2M2JhNDM2ODZlOTc4MjI1ZDg4YWZiOGM0MzczZmVlYzYxODhk" class="card-img-top" alt="Product 1">
+        </a>
+        <div class="card-body">
+          <h5 class="card-title">{{ obj.name }}</h5>
+          <p class="card-text">{{ obj.details }}</p>
+          
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <!-- <div class="row">
     <div class="col-lg-3 col-md-4 mb-4">
       <div class="card">
         <a href="#"> <img src="https://www.reliancedigital.in/medias/OnePlus-Nord-CE2-Lite-5G-CLP-Banner-27-04-2023-Mobile.jpg?context=bWFzdGVyfGltYWdlc3w3MDUzMXxpbWFnZS9qcGVnfGltYWdlcy9oZTcvaDI0LzEwMDYzMDU0ODMxNjQ2LmpwZ3w1Mzk5Y2RmYjQzNGEwZWFlM2Y3Yzc0NTc2OGI2M2JhNDM2ODZlOTc4MjI1ZDg4YWZiOGM0MzczZmVlYzYxODhk" class="card-img-top" alt="Product 1">
@@ -199,7 +215,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 <div class="footer">
   <div class="container">
