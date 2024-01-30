@@ -52,8 +52,24 @@ def login(request):
         form=MyForm()
         data=request.COOKIES["user_cookie"]
         decoded_token = jwt.decode(data, 'secret', 'HS256')
-        if decoded_token["login_status"]==1:
-           return render(request,'index.html')
+        if decoded_token["login_status"]==1:  
+                user_searches=user_searchs.objects.filter(userobj=user.objects.get(username=decoded_token["username"]))
+                search_key=""
+                similar_id=[]
+                for i in user_searches:
+                    search_key+=" "+i.searchs
+                    if search_key!="":
+                       similar_id=create_pkl(search_key)
+                print("working")
+                if len(similar_id)==0:
+                   response=render(request,'index.html')
+                else:
+                    objs=[]
+                    for i in similar_id:
+                        objs.append(product.objects.get(pid=i))
+                    response=render(request,'index.html',{"objs": objs})
+                return response
+          
     form=MyForm()
     return render(request,"login.html",{"form":form})
 
