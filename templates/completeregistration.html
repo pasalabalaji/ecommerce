@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <title>E-Buy</title>
+  <style>
+
+body{
+      padding-top: 56px; 
+    }
+    .content {
+      flex: 1;
+    }
+    .footer {
+      background-color: #f8f9fa;
+      padding: 20px 0;
+      text-align: center;
+    }
+    
+.container1 {
+    width: 500px;
+    margin: 50px auto;
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #000;
+}
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+    }
+}
+    </style>
+      <script type="text/javascript">
+        history.pushState(null, null, document.URL);
+        window.addEventListener('popstate', function () {
+        history.pushState(null, null, document.URL);
+        });
+    </script>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+  <a class="navbar-brand" href="#">E-Buy</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav mr-auto">
+     
+    </ul>
+    <!-- <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form> -->
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+          <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+        </svg></a>
+     </li>
+     <li class="nav-item">
+      <a class="nav-link" href="user_profile">Profile</a>
+     </li>
+     <li class="nav-item">
+      <a class="nav-link" href="index">Home</a>
+     </li>
+     <li class="nav-item">
+        <a class="nav-link" href="logout_user">Logout</a>
+     </li>
+     <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         More Options
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" href="#">Contact Us</a>
+        <a class="dropdown-item" href="sell_product">Sell Products</a>
+      </div>
+    </li>
+    </ul>
+  </div>
+</nav>
+
+
+
+<form action="upload_registration" method="POST">
+    <div class="container1">
+        <h2>Complete Registration</h2>
+        <div class="form-group">
+          <label for="district">State Name:</label>
+          <input type="text" id="state" name="state" placeholder="Enter state name">
+      </div>
+        <div class="form-group">
+            <label for="district">District Name:</label>
+            <input type="text" id="district" name="district" placeholder="Enter district name">
+        </div>
+        <div class="form-group">
+          <label for="district">City Name:</label>
+          <input type="text" id="city" name="city" placeholder="Enter city name">
+        </div>
+        <div class="form-group">
+          <label for="district">Pincode:</label>
+          <input type="text" id="pincode" name="pincode" placeholder="Enter pincode">
+        </div>
+        <div class="form-group">
+          <label for="district">Mobile number:</label>
+          <input type="text" id="mobileNumber" name="mobileNumber" placeholder="Enter mobile Number">
+      </div>
+       
+        <div class="form-group">
+            <button type="submit">Submit</button>
+        </div>
+        {{ message }}
+    </div>
+</form>
+
+
+<div class="footer">
+  <div class="container">
+    <p>&copy; 2023 E-Buy. All Rights Reserved.</p>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+</body>
+</html> 
+
+

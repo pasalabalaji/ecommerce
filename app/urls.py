@@ -14,4 +14,6 @@ urlpatterns=[
     path('index',login),
     path('search_product',search_product),
     path('user_profile',user_profile),
+    path('complete_registration',complete_registration),
+    path('upload_registration',upload_registration),
 ]

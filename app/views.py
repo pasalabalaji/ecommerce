@@ -229,9 +229,40 @@ def search_product(request):
 
 def user_profile(request):
     if(request.COOKIES.get('user_cookie') is not None):
-        return render(request,"profile.html")
+        data=request.COOKIES["user_cookie"]
+        decoded_token = jwt.decode(data, 'secret', 'HS256')
+        uname=decoded_token["username"]
+        user_obj=user.objects.get(username=uname)
+        user_profile=profile.objects.filter(user=user_obj)
+        if len(user_profile)==0:
+           return render(request,"profile.html",{"user":user_obj,"status":0}) 
+        else:
+           user_profile=profile.objects.get(user=user_obj)
+           return render(request,"profile.html",{"user":user_obj,"obj":user_profile,"status":1})  
     else:
         return render(request,"login.html")
+
+def complete_registration(request):
+    if(request.COOKIES.get('user_cookie') is not None):
+        return render(request,"completeregistration.html")
+    else:
+        return render(request,"login.html")
+
+def upload_registration(request):
+    if(request.COOKIES.get('user_cookie') is not None):
+        state=request.POST["state"]
+        district=request.POST["district"]
+        city=request.POST["city"]
+        pincode=request.POST["pincode"]
+        mobile_number=request.POST["mobileNumber"]
+        data=request.COOKIES["user_cookie"]
+        decoded_token = jwt.decode(data, 'secret', 'HS256')
+        user_obj=user.objects.get(username=decoded_token["username"])
+        pObj=profile(user=user_obj,state=state,district=district,city=city,pincode=pincode,mobile_number=mobile_number,premium="no")
+        pObj.save()
+        message="Registration Comleted..."
+        return render(request,"completeregistration.html",{"message":message})
+
 
 
 
