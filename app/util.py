@@ -25,11 +25,11 @@ def transform(vectors):
 def create_pkl(product_search):
     try:
         data=product.objects.all()
-        # for i in data:
-        #     fields=[str(i.pid),str(i.producttype),str(i.name),str(i.cost),str(i.details)]
-        #     with open('data.csv', 'a') as f:
-        #         writer = csv.writer(f)
-        #         writer.writerow(fields)
+        for i in data:
+            fields=[str(i.pid),str(i.producttype),str(i.name),str(i.cost),str(i.details)]
+            with open('data.csv', 'a') as f:
+                writer = csv.writer(f)
+                writer.writerow(fields)
         
         products=pd.read_csv("data.csv")
         products=products.dropna()

@@ -56,6 +56,8 @@ def login(request):
                 user_searches=user_searchs.objects.filter(userobj=user.objects.get(username=decoded_token["username"]))
                 search_key=""
                 similar_id=[]
+                if len(user_searches)>10:
+                   user_searches=user_searches[len(user_searches)-10:len(user_searches)]
                 for i in user_searches:
                     search_key+=" "+i.searchs
                     if search_key!="":
@@ -204,23 +206,33 @@ def sell_product(request):
 from .util import *
 
 def search_product(request):
-    productName=request.GET["product"]
-    data=request.COOKIES["user_cookie"]
-    decoded_token = jwt.decode(data, 'secret', 'HS256')
-    uname=decoded_token["username"]
-    searchs=user_searchs.objects.filter(searchs=productName)
-    user_search=user_searchs.objects.filter(userobj=user.objects.get(username=uname).uniqueid)
-    if len(user_search)>=10:
-       for i in range(len(user_search)-9):
-            user_searchs.objects.filter(searchs=user_search[i].searchs,userobj=user_search[i].userobj).delete()
-    if len(searchs)==0:
-       searchobj=user_searchs(userobj=user.objects.get(username=uname),searchs=productName)
-       searchobj.save()
-    similar_id=create_pkl(productName)
-    objs=[]
-    for i in similar_id:
-        objs.append(product.objects.get(pid=i))
-    return render(request,"sr.html",{"objects":objs})
+    if(request.COOKIES.get('user_cookie') is not None):
+        productName=request.GET["product"]
+        data=request.COOKIES["user_cookie"]
+        decoded_token = jwt.decode(data, 'secret', 'HS256')
+        uname=decoded_token["username"]
+        searchs=user_searchs.objects.filter(searchs=productName)
+        user_search=user_searchs.objects.filter(userobj=user.objects.get(username=uname).uniqueid)
+        if len(user_search)>=10:
+            for i in range(len(user_search)-9):
+                    user_searchs.objects.filter(searchs=user_search[i].searchs,userobj=user_search[i].userobj).delete()
+        if len(searchs)==0:
+            searchobj=user_searchs(userobj=user.objects.get(username=uname),searchs=productName)
+            searchobj.save()
+        similar_id=create_pkl(productName)
+        objs=[]
+        for i in similar_id:
+            objs.append(product.objects.get(pid=i))
+        return render(request,"sr.html",{"objects":objs})
+    else:
+        return render(request,"login.html")
+
+def user_profile(request):
+    if(request.COOKIES.get('user_cookie') is not None):
+        return render(request,"profile.html")
+    else:
+        return render(request,"login.html")
+
 
 
 #DEC
