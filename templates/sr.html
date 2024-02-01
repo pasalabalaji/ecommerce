@@ -75,11 +75,12 @@
   <div class="row">
     <div class="col-md-4">
       <div class="product-card">
-        <img src="https://via.placeholder.com/300" alt="Product 1" class="product-image">
+        <a href="show/{{ obj.pid  }}"><img src="https://via.placeholder.com/300" alt="Product 1" class="product-image"></a>
         <div class="product-details">
-          <h5>{{ obj.name }}</h5>
-          <p>{{ obj.details }}</p>
+          <h5><a href="show/{{obj.pid}}" style="text-decoration: none; color: rgba(0,0,0,0.5)">{{ obj.name | upper }}</a></h5>
+          <!-- <p>{{ obj.details }}</p>
           <button class="btn btn-primary" style="background-color: green; border-color: green;"><a href="{{ obj.pid }}" style="color: white; text-decoration: none;">Check product</a></button>
+         -->
         </div>
       </div>
     </div>

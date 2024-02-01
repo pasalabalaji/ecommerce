@@ -8,6 +8,7 @@ from django.core.mail import send_mail
 # Create your views here.
 import jwt,datetime
 import random
+from django.shortcuts import redirect
 
 
 def login(request):
@@ -269,7 +270,21 @@ def upload_registration(request):
         pObj.save()
         message="Registration Comleted..."
         return render(request,"completeregistration.html",{"message":message})
+    else:
+        return render(request,"login.html")
 
+def show_product(request,pk):
+    if(request.COOKIES.get('user_cookie') is not None):
+       productobj=product.objects.get(pid=pk)
+       return render(request,"productinfo.html",{"obj":productobj})
+    else:
+        return render(request,"login.html")
+
+def show_index(request,pk):
+    if(request.COOKIES.get('user_cookie') is not None):
+      return HttpResponse("working...")
+    else:
+      return render(request,"login.html")
 
 
 

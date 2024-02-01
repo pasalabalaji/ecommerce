@@ -16,4 +16,7 @@ urlpatterns=[
     path('user_profile',user_profile),
     path('complete_registration',complete_registration),
     path('upload_registration',upload_registration),
+    path('show/<str:pk>',show_product),
+    path('show/index',show_product,name="index"),
+   
 ]
