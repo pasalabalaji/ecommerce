@@ -234,11 +234,18 @@ def user_profile(request):
         uname=decoded_token["username"]
         user_obj=user.objects.get(username=uname)
         user_profile=profile.objects.filter(user=user_obj)
+        orders=user_orders.objects.filter(ordered_user=user_obj)
+        # user_order=user_orders(ordered_user=user_obj,ordered_item="dummy item2",order_id="EBUY2",ordered_date="12-25-23",expected_delivery="1-1-24",order_status="In Transit")
+        # user_order.save()
         if len(user_profile)==0:
            return render(request,"profile.html",{"user":user_obj,"status":0}) 
         else:
            user_profile=profile.objects.get(user=user_obj)
-           return render(request,"profile.html",{"user":user_obj,"obj":user_profile,"status":1})  
+           if len(orders)==0:
+               return render(request,"profile.html",{"user":user_obj,"obj":user_profile,"status":1,"orders_message":0})
+           else:
+               orders=user_orders.objects.filter(ordered_user=user_obj)
+               return render(request,"profile.html",{"user":user_obj,"obj":user_profile,"status":1,"orders":orders,"orders_message":1})  
     else:
         return render(request,"login.html")
 

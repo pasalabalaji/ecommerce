@@ -40,6 +40,15 @@ class product(models.Model):
       details=models.CharField(max_length=200,null=True)
       rating=models.CharField(max_length=10,null=True)
 
+class user_orders(models.Model):
+      ordered_user=models.ForeignKey(user,on_delete=models.CASCADE,null=True)
+      ordered_item=models.CharField(max_length=30,null=True)
+      order_id=models.CharField(max_length=30,null=True)
+      ordered_date=models.CharField(max_length=10,null=True)
+      expected_delivery=models.CharField(max_length=10,null=True)
+      order_status=models.CharField(max_length=10,null=True)
+
+
 # def create_profile(sender,instance,created,**kwargs):
 #     if created:
 #         user_profile=profile(user=instance)
