@@ -280,13 +280,30 @@ def show_product(request,pk):
     else:
         return render(request,"login.html")
 
-def show_index(request,pk):
+def show_index(request):
     if(request.COOKIES.get('user_cookie') is not None):
-      return HttpResponse("working...")
+       return redirect("http://127.0.0.1:8000")
     else:
-      return render(request,"login.html")
+        return render(request,"login.html")
 
+def checkout(request,pk):
+    if(request.COOKIES.get('user_cookie') is not None):
+        product_obj=product.objects.get(pid=pk)
+        return render(request,"checkout.html",{"product":product_obj})
+    else:
+        return render(request,"login.html")
 
+def add_to_cart(request,pk):
+    if(request.COOKIES.get('user_cookie') is not None):
+        data=request.COOKIES["user_cookie"]
+        decoded_token = jwt.decode(data, 'secret', 'HS256')
+        user_obj=user.objects.get(username=decoded_token["username"])
+        cartobj=cart(cartref=user_obj,items=pk)
+        cartobj.save()
+        msg="Product added to cart successfully..."
+        return render("checkout.html",{"msg":msg})
+    else:
+        return render(request,"login.html")
 
 #DEC
 #1st week

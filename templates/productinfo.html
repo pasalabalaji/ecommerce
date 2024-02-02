@@ -22,17 +22,10 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav mr-auto">
-       
-      </ul>
-      <form class="form-inline my-2 my-lg-0" action="search_product" method="GET">
-        <input class="form-control mr-sm-2" name="product" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
       <ul class="navbar-nav ml-auto">
    
        <li class="nav-item">
-        <a class="nav-link" href="{% url 'index' %}">Home</a>
+        <a class="nav-link" href="navindex">Home</a>
        </li>
       </ul>
     </div>
@@ -45,7 +38,9 @@
             <div class="card">
                 <img src="https://placehold.it/300" class="card-img-top" alt="Profile Image">
                 <div class="card-body">
-                    <button type="button" class="btn btn-primary" >Checkout</button>
+                    <form method="get" action="checkout/{{ obj.pid }}">
+                        <button type="submit" class="btn btn-primary" >Checkout</button>
+                    </form>
         
                 </div>
             </div>

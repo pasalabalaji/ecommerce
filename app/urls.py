@@ -16,7 +16,12 @@ urlpatterns=[
     path('user_profile',user_profile),
     path('complete_registration',complete_registration),
     path('upload_registration',upload_registration),
+    path('show/navindex',show_index),
+    path('show/checkout/navindex',show_index),
+    path('show/checkout/addtocart/<str:pk>',add_to_cart),
+    # path('show/checkout/buy/<str:pk>',buy),
+    path('show/checkout/<str:pk>',checkout),
     path('show/<str:pk>',show_product),
-    path('show/index',show_product,name="index"),
-   
+    
+    
 ]
