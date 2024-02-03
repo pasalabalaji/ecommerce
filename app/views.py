@@ -298,12 +298,29 @@ def add_to_cart(request,pk):
         data=request.COOKIES["user_cookie"]
         decoded_token = jwt.decode(data, 'secret', 'HS256')
         user_obj=user.objects.get(username=decoded_token["username"])
-        cartobj=cart(cartref=user_obj,items=pk)
-        cartobj.save()
-        msg="Product added to cart successfully..."
-        return render("checkout.html",{"msg":msg})
+        product_obj=product.objects.get(pid=pk)
+        cartobj=ucart(cartref=user_obj,item=product_obj)
+        cartobj.save()          
+        return redirect("http://127.0.0.1:8000")
     else:
         return render(request,"login.html")
+
+def cart(request):
+    if(request.COOKIES.get('user_cookie') is not None):
+        data=request.COOKIES["user_cookie"]
+        decoded_token = jwt.decode(data, 'secret', 'HS256')
+        user_obj=user.objects.get(username=decoded_token["username"])
+        ucartobj=ucart.objects.filter(cartref=user_obj)
+        cartitems=[]
+        for i in ucartobj:
+            cartitems.append(i.item)
+        if len(ucartobj)==0:
+           return render(request,"cart.html",{"status":0}) 
+        else:
+           return render(request,"cart.html",{"status":1,"cartitems":cartitems})
+    else:
+        return render(request,"login.html")
+
 
 #DEC
 #1st week

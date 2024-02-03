@@ -26,9 +26,7 @@ class profile(models.Model):
     def __str__(self):
         return self.user.username
     
-class cart(models.Model):
-    cartref=models.ForeignKey(user,on_delete=models.CASCADE) 
-    items=models.CharField(max_length=100,null=True)
+
 
 class product(models.Model):
       user_product=models.ForeignKey(user,on_delete=models.CASCADE,null=True)
@@ -39,6 +37,10 @@ class product(models.Model):
       cost=models.CharField(max_length=50,null=True)
       details=models.CharField(max_length=200,null=True)
       rating=models.CharField(max_length=10,null=True)
+
+class ucart(models.Model):
+    cartref=models.ForeignKey(user,on_delete=models.CASCADE,null=True) 
+    item=models.ForeignKey(product,on_delete=models.CASCADE,null=True)
 
 class user_orders(models.Model):
       ordered_user=models.ForeignKey(user,on_delete=models.CASCADE,null=True)
