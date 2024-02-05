@@ -60,7 +60,7 @@
             <div class="card">
                 <div class="card-body">
                     <!-- <h5 class="card-title">Select To Order </h5> -->
-                    {{ message }}
+                    {% if status == 1 %}
                     <div class="alert alert-info" role="alert">
                         Select Items To Order&nbsp;
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-plus" viewBox="0 0 16 16">
@@ -68,7 +68,7 @@
                             <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
                         </svg>
                     </div>
-                      
+                    {% endif %}
                     {% if status == 0 %}
                     <div class="alert alert-warning" role="alert">
                         Nothing In Cart...
@@ -97,8 +97,10 @@
                         {% endfor %}
                     </ul>
                        
-                    {% endif %}
+                    
+                    
                     <button class="btn btn-primary">Buy Now</a>
+                    {% endif %}
                 </form>
                     <!-- <div class="row" style="margin-top: 10px; margin-bottom: 10px; margin-left: 1%;">
                         <form method="post" action="buy">

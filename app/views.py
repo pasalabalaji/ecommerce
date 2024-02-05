@@ -5,8 +5,10 @@ from django.http import HttpResponse
 from .forms import *
 from django.conf import settings
 from django.core.mail import send_mail
-# Create your views here.
-import jwt,datetime
+
+
+import jwt
+from datetime import datetime, timedelta
 import random
 from django.shortcuts import redirect
 
@@ -24,12 +26,18 @@ def login(request):
                 error_message="User not found"
                 return render(request,"login.html",{"form":form,"error_message":error_message})
             else:
-                payload={
+                # payload={
+                # 'username': username,
+                # 'login_status': 1,
+                # 'exp': datetime.datetime.utcnow()+datetime.timedelta(minutes=60),
+                # 'iat':  datetime.datetime.utcnow()
+                # }
+                payload = {
                 'username': username,
                 'login_status': 1,
-                'exp': datetime.datetime.utcnow()+datetime.timedelta(minutes=60),
-                'iat':  datetime.datetime.utcnow()
-                }
+                'exp': datetime.utcnow() + timedelta(minutes=60),
+                'iat': datetime.utcnow()
+                 }
                 encoded_token = jwt.encode(payload, 'secret', 'HS256')
                 user_searches=user_searchs.objects.filter(userobj=user.objects.get(username=username,password=password))
                 search_key=""
@@ -333,12 +341,16 @@ def buy(request):
         data=request.COOKIES["user_cookie"]
         decoded_token = jwt.decode(data, 'secret', 'HS256')
         user_obj=user.objects.get(username=decoded_token["username"])
+        ordersobj=[]
+        totalCost=0
         for item in ordered_items:
+            ordersobj.append(product.objects.get(pid=item))
+            totalCost+=int(product.objects.get(pid=item).cost)
             user_order=user_orders(ordered_user=user_obj,ordered_item=product.objects.get(pid=item).name,order_id="EBUY"+str(get_date_time()).replace("-","").replace(" ","").replace(":","").replace(".",""),ordered_date=str(datetime.now().date()),expected_delivery=product.objects.get(pid=item).cost,order_status="Confirmed")
             user_order.save()  
             cartobj=ucart.objects.filter(item=product.objects.get(pid=item)).first()
             cartobj.delete()
-        return HttpResponse("order confirmed")
+        return render(request,"confirmation.html",{"orders":ordersobj,"totalCost":totalCost})
     else:
       return render(request,"login.html")
     
