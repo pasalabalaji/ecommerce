@@ -9,8 +9,8 @@ from django.core.mail import send_mail
 import jwt,datetime
 import random
 from django.shortcuts import redirect
-import datetime
-# from datetime import datetime
+
+
 
 
 def login(request):
@@ -328,11 +328,13 @@ def cart(request):
 def buy(request):
     if(request.COOKIES.get('user_cookie') is not None):
         ordered_items=request.POST.getlist("options")
+        if len(ordered_items)==0:
+           return redirect("http://127.0.0.1:8000/cart")         
         data=request.COOKIES["user_cookie"]
         decoded_token = jwt.decode(data, 'secret', 'HS256')
         user_obj=user.objects.get(username=decoded_token["username"])
         for item in ordered_items:
-            user_order=user_orders(ordered_user=user_obj,ordered_item=product.objects.get(pid=item).name,order_id="EBUY"+str(decoded_token["username"]).upper()+str(datetime.now().date()).replace("-","")+str(datetime.now().time()).replace(":","").replace(".",""),ordered_date=str(datetime.now().date()),expected_delivery=product.objects.get(pid=item).cost,order_status="Confirmed")
+            user_order=user_orders(ordered_user=user_obj,ordered_item=product.objects.get(pid=item).name,order_id="EBUY"+str(get_date_time()).replace("-","").replace(" ","").replace(":","").replace(".",""),ordered_date=str(datetime.now().date()),expected_delivery=product.objects.get(pid=item).cost,order_status="Confirmed")
             user_order.save()  
             cartobj=ucart.objects.filter(item=product.objects.get(pid=item)).first()
             cartobj.delete()

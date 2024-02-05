@@ -11,6 +11,10 @@ from sklearn.feature_extraction.text import CountVectorizer
 import csv   
 from sklearn.metrics.pairwise import cosine_similarity
 from scipy import spatial
+from datetime import datetime
+
+def get_date_time():
+    return datetime.now()
 
 def helper(text):
     y=[]
