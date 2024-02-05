@@ -65,11 +65,17 @@
             <p class="card-text"><strong>Total: ₹{{ product.cost }}</strong></p>
           </div>
         </div>
-        <div class="row" style="margin-top: 10px; margin-bottom: 10px;">
-          <form method="post" action="addtocart/{{ product.pid }}">
-            <button type="submit" class="btn btn-success">Add to Cart</button>
-            <button type="submit" class="btn btn-primary">Buy Now</button>
-           </form>
+
+        <div class="container mt-5">
+        
+          <div class="row">
+            <div class="col-md-6 mb-2">
+              <a href="addtocart/{{ product.pid }}" class="btn btn-primary btn-block">Add to Cart</a>
+            </div>
+            <div class="col-md-6">
+              <a href="buy/{{ product.pid }}" class="btn btn-success btn-block">Buy Now</a>
+            </div>
+          </div>
         </div>
         <!-- <div class="mt-3">
           

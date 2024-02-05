@@ -236,8 +236,6 @@ def user_profile(request):
         user_obj=user.objects.get(username=uname)
         user_profile=profile.objects.filter(user=user_obj)
         orders=user_orders.objects.filter(ordered_user=user_obj)
-        # user_order=user_orders(ordered_user=user_obj,ordered_item="dummy item2",order_id="EBUY2",ordered_date="12-25-23",expected_delivery="1-1-24",order_status="In Transit")
-        # user_order.save()
         if len(user_profile)==0:
            return render(request,"profile.html",{"user":user_obj,"status":0}) 
         else:
@@ -301,7 +299,7 @@ def add_to_cart(request,pk):
         product_obj=product.objects.get(pid=pk)
         cartobj=ucart(cartref=user_obj,item=product_obj)
         cartobj.save()          
-        return redirect("http://127.0.0.1:8000")
+        return redirect("http://127.0.0.1:8000/cart")
     else:
         return render(request,"login.html")
 
@@ -320,7 +318,19 @@ def cart(request):
            return render(request,"cart.html",{"status":1,"cartitems":cartitems})
     else:
         return render(request,"login.html")
+    
+from datetime import datetime
 
+def buy(request):
+    if(request.COOKIES.get('user_cookie') is not None):
+        ordered_items=request.POST.getlist("options")
+        data=request.COOKIES["user_cookie"]
+        decoded_token = jwt.decode(data, 'secret', 'HS256')
+        user_obj=user.objects.get(username=decoded_token["username"])
+        for item in ordered_items:
+            user_order=user_orders(ordered_user=user_obj,ordered_item=item,order_id="EBUY"+str(decoded_token["username"]).upper()+str(datetime.now().date()).replace("-","")+str(datetime.now().time()).replace(":","").replace(".",""),ordered_date=str(datetime.now().date()),expected_delivery="Notified",order_status="Confirmed")
+            user_order.save()
+        return HttpResponse("Order Confirmed")
 
 #DEC
 #1st week
