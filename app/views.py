@@ -9,6 +9,8 @@ from django.core.mail import send_mail
 import jwt,datetime
 import random
 from django.shortcuts import redirect
+import datetime
+# from datetime import datetime
 
 
 def login(request):
@@ -36,7 +38,6 @@ def login(request):
                     search_key+=" "+i.searchs
                     if search_key!="":
                        similar_id=create_pkl(search_key)
-                print("working")
                 if len(similar_id)==0:
                    response=render(request,'index.html')
                    response.set_cookie('user_cookie',encoded_token)
@@ -44,7 +45,8 @@ def login(request):
                     objs=[]
                     for i in similar_id:
                         objs.append(product.objects.get(pid=i))
-                    response=render(request,'index.html',{"objs": objs})
+                    count=len(ucart.objects.filter(cartref=user.objects.get(username=username)))
+                    response=render(request,'index.html',{"objs": objs,"count":count})
                     response.set_cookie('user_cookie',encoded_token)
                 return response
         else:
@@ -63,14 +65,14 @@ def login(request):
                     search_key+=" "+i.searchs
                     if search_key!="":
                        similar_id=create_pkl(search_key)
-                print("working")
                 if len(similar_id)==0:
                    response=render(request,'index.html')
                 else:
                     objs=[]
                     for i in similar_id:
                         objs.append(product.objects.get(pid=i))
-                    response=render(request,'index.html',{"objs": objs})
+                    count=len(ucart.objects.filter(cartref=user.objects.get(username=decoded_token["username"])))
+                    response=render(request,'index.html',{"objs": objs,"count":count})
                 return response
           
     form=MyForm()
@@ -236,15 +238,16 @@ def user_profile(request):
         user_obj=user.objects.get(username=uname)
         user_profile=profile.objects.filter(user=user_obj)
         orders=user_orders.objects.filter(ordered_user=user_obj)
+        count=len(ucart.objects.filter(cartref=user.objects.get(username=uname)))
         if len(user_profile)==0:
-           return render(request,"profile.html",{"user":user_obj,"status":0}) 
+           return render(request,"profile.html",{"user":user_obj,"status":0,"count":count}) 
         else:
            user_profile=profile.objects.get(user=user_obj)
            if len(orders)==0:
-               return render(request,"profile.html",{"user":user_obj,"obj":user_profile,"status":1,"orders_message":0})
+               return render(request,"profile.html",{"user":user_obj,"obj":user_profile,"status":1,"orders_message":0,"count":count})
            else:
                orders=user_orders.objects.filter(ordered_user=user_obj)
-               return render(request,"profile.html",{"user":user_obj,"obj":user_profile,"status":1,"orders":orders,"orders_message":1})  
+               return render(request,"profile.html",{"user":user_obj,"obj":user_profile,"status":1,"orders":orders,"orders_message":1,"count":count})  
     else:
         return render(request,"login.html")
 
@@ -319,7 +322,8 @@ def cart(request):
     else:
         return render(request,"login.html")
     
-from datetime import datetime
+
+
 
 def buy(request):
     if(request.COOKIES.get('user_cookie') is not None):
@@ -328,9 +332,16 @@ def buy(request):
         decoded_token = jwt.decode(data, 'secret', 'HS256')
         user_obj=user.objects.get(username=decoded_token["username"])
         for item in ordered_items:
-            user_order=user_orders(ordered_user=user_obj,ordered_item=item,order_id="EBUY"+str(decoded_token["username"]).upper()+str(datetime.now().date()).replace("-","")+str(datetime.now().time()).replace(":","").replace(".",""),ordered_date=str(datetime.now().date()),expected_delivery="Notified",order_status="Confirmed")
-            user_order.save()
-        return HttpResponse("Order Confirmed")
+            user_order=user_orders(ordered_user=user_obj,ordered_item=product.objects.get(pid=item).name,order_id="EBUY"+str(decoded_token["username"]).upper()+str(datetime.now().date()).replace("-","")+str(datetime.now().time()).replace(":","").replace(".",""),ordered_date=str(datetime.now().date()),expected_delivery=product.objects.get(pid=item).cost,order_status="Confirmed")
+            user_order.save()  
+            cartobj=ucart.objects.filter(item=product.objects.get(pid=item)).first()
+            cartobj.delete()
+        return HttpResponse("order confirmed")
+    else:
+      return render(request,"login.html")
+    
+
+        
 
 #DEC
 #1st week

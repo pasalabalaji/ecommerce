@@ -30,11 +30,6 @@
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
       </form>
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
-            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-          </svg></a>
-       </li>
        <li class="nav-item">
         <a class="nav-link" href="user_profile">Profile</a>
        </li>
@@ -78,7 +73,7 @@
                         Nothing In Cart...
                       </div>                      
                     {% endif %}
-                    <form method="post" action="buy">
+                    <form method="post" action="buyitems">
                     {% if status == 1 %}
                     <ul class="list-group">
                         {% for item in cartitems %}
@@ -90,6 +85,9 @@
                                             <img src="https://www.reliancedigital.in/medias/OnePlus-Nord-CE2-Lite-5G-CLP-Banner-27-04-2023-Mobile.jpg?context=bWFzdGVyfGltYWdlc3w3MDUzMXxpbWFnZS9qcGVnfGltYWdlcy9oZTcvaDI0LzEwMDYzMDU0ODMxNjQ2LmpwZ3w1Mzk5Y2RmYjQzNGEwZWFlM2Y3Yzc0NTc2OGI2M2JhNDM2ODZlOTc4MjI1ZDg4YWZiOGM0MzczZmVlYzYxODhk" class="card-img-top" alt="...">
                                             <div class="card-body">
                                             <p class="card-text">{{ item.name }}</p>
+                                            <p class="card-text">
+                                               ₹{{ item.cost }}
+                                            </p>
                                         </div>
                                     </div>
                                 </div>

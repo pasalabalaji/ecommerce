@@ -22,6 +22,6 @@ urlpatterns=[
     path('show/checkout/<str:pk>',checkout),
     path('show/<str:pk>',show_product),
     path('cart',cart),
-    path('buy',buy),
+    path('buyitems',buy),
     
 ]

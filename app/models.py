@@ -49,6 +49,7 @@ class user_orders(models.Model):
       ordered_date=models.CharField(max_length=10,null=True)
       expected_delivery=models.CharField(max_length=10,null=True)
       order_status=models.CharField(max_length=10,null=True)
+      
 
 
 # def create_profile(sender,instance,created,**kwargs):

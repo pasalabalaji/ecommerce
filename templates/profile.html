@@ -33,7 +33,7 @@
         <li class="nav-item">
           <a class="nav-link" href="cart"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
             <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-          </svg></a>
+          </svg><sup>{{ count }}</sup></a>
        </li>
        <li class="nav-item">
         <a class="nav-link" href="user_profile">Profile</a>
@@ -59,6 +59,80 @@
 
 <!-- Profile Content -->
 <div class="container mt-5">
+  <div class="row">
+      <!-- First Container -->
+      <div class="col-md-6 mb-3">
+          <div class="card">
+                 <div class="card-body">
+                  <img src="https://www.reliancedigital.in/medias/OnePlus-Nord-CE2-Lite-5G-CLP-Banner-27-04-2023-Mobile.jpg?context=bWFzdGVyfGltYWdlc3w3MDUzMXxpbWFnZS9qcGVnfGltYWdlcy9oZTcvaDI0LzEwMDYzMDU0ODMxNjQ2LmpwZ3w1Mzk5Y2RmYjQzNGEwZWFlM2Y3Yzc0NTc2OGI2M2JhNDM2ODZlOTc4MjI1ZDg4YWZiOGM0MzczZmVlYzYxODhk" alt="Product 1" class="mr-2" style="max-width: 50px; max-height: 50px;">
+                        
+                      <h5 class="card-title">{{ user.username }}</h5>
+                      <p class="card-text">{{ user.uniqueid }}</p>
+                      {% if status == 1 %}
+                      <p class="card-text">{{ obj.state}},{{ obj.district }},{{ obj.city }},{{ obj.pincode }}</p>
+                      {% endif %}
+                      {% if status == 0 %}
+                      <a href="complete_registration" style="text-decoration: none; color: red; ">
+                          <p class="card-text">
+                              Please complete registration
+                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-passport-fill" viewBox="0 0 16 16">
+                                  <path d="M8 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4"/>
+                                  <path d="M2 3.252a1.5 1.5 0 0 1 1.232-1.476l8-1.454A1.5 1.5 0 0 1 13 1.797v.47A2 2 0 0 1 14 4v10a2 2 0 0 1-2 2H4a2 2 0 0 1-1.51-.688 1.5 1.5 0 0 1-.49-1.11V3.253ZM5 8a3 3 0 1 0 6 0 3 3 0 0 0-6 0m0 4.5a.5.5 0 0 0 .5.5h5a.5.5 0 0 0 0-1h-5a.5.5 0 0 0-.5.5"/>
+                              </svg>
+                          </p>
+                      </a>
+                      {% endif %}
+                  </div>
+              </div>
+          </div>
+
+      <!-- Second Container -->
+      <div class="col-md-6">
+          <div class="card">
+            
+            {% if orders_message == 0 %}
+            <div class="alert alert-warning" role="alert">
+                You Haven't Ordered Yet...
+              </div>                      
+            {% endif %}
+            {% if orders_message == 1 %}
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Order ID</th>
+                    <th>Product Name</th>
+                    <th>Status/Delivery Date</th>
+                    <th>Cost</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for order in orders %}
+                  <tr>
+                    <td>{{ order.order_id }}</td>
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <img src="https://www.reliancedigital.in/medias/OnePlus-Nord-CE2-Lite-5G-CLP-Banner-27-04-2023-Mobile.jpg?context=bWFzdGVyfGltYWdlc3w3MDUzMXxpbWFnZS9qcGVnfGltYWdlcy9oZTcvaDI0LzEwMDYzMDU0ODMxNjQ2LmpwZ3w1Mzk5Y2RmYjQzNGEwZWFlM2Y3Yzc0NTc2OGI2M2JhNDM2ODZlOTc4MjI1ZDg4YWZiOGM0MzczZmVlYzYxODhk" alt="Product 1" class="mr-2" style="max-width: 50px; max-height: 50px;">
+                        {{ order.ordered_item }}
+                      </div>
+                    </td>
+                    <td>
+                      <div class="alert alert-info" role="alert">
+                        {{ order.order_status }}
+                      </div>
+                    </td>
+                    <td>{{ order.expected_delivery }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            {% endif %}
+          </div>
+      </div>
+  </div>
+</div>
+<!-- <div class="container mt-5">
     <div class="row">
         <div class="col-md-4">
             <div class="card">
@@ -84,7 +158,47 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-8">
+        <div class="container mt-5">
+          <h2>Order History</h2>
+          {% if orders_message == 0 %}
+          <div class="alert alert-warning" role="alert">
+              You Haven't Ordered Yet...
+            </div>                      
+          {% endif %}
+          {% if orders_message == 1 %}
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Product Name</th>
+                <th>Order Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for order in orders %}
+              <tr>
+                <td>
+                  {{ order.order_id }}
+                </td>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <img src="https://www.reliancedigital.in/medias/OnePlus-Nord-CE2-Lite-5G-CLP-Banner-27-04-2023-Mobile.jpg?context=bWFzdGVyfGltYWdlc3w3MDUzMXxpbWFnZS9qcGVnfGltYWdlcy9oZTcvaDI0LzEwMDYzMDU0ODMxNjQ2LmpwZ3w1Mzk5Y2RmYjQzNGEwZWFlM2Y3Yzc0NTc2OGI2M2JhNDM2ODZlOTc4MjI1ZDg4YWZiOGM0MzczZmVlYzYxODhk" alt="Product 1" class="mr-2" style="max-width: 50px; max-height: 50px;">
+                    {{ order.ordered_item }}
+                  </div>
+                </td>
+                <td>
+                  {{ order.order_status }} -<em style="font-size: 12px;">Expected Delivery {{ order.expected_delivery }}</em>
+                </td>
+              </tr>
+        
+        
+              {% endfor %}
+        
+            </tbody>
+          </table>
+          {% endif %}
+        </div>
+          <div class="col-md-8">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Order History</h5>
@@ -133,9 +247,9 @@
                     {% endif %}
                 </div>
             </div>
-        </div>
+        </div> 
     </div>
-</div>
+</div> -->
 
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
