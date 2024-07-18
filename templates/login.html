@@ -49,7 +49,7 @@
               {% for error in form.captcha.errors %}
               <p>{{ error }}</p>
               {% endfor %}
-              <button type="submit" class="btn btn-primary">Login</button>
+              <button type="submit" style="margin-top: 5px;" class="btn btn-primary">Login</button>
 
             </form>
             <p class="text-center mt-3">Don't have an account? <a href="{% url 'signup' %}">Sign Up</a></p>

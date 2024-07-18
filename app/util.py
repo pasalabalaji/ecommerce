@@ -84,7 +84,7 @@ def create_pkl(product_search):
         similar_products=[]
         count=0
         for i in similarity:
-            if count>5:
+            if count>9:
                break
             elif i[1]!=0:
                 similar_products.append(preprocessedDf["pid"][i[0]])

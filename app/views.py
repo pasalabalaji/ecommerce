@@ -67,6 +67,8 @@ def login(request):
                 user_searches=user_searchs.objects.filter(userobj=user.objects.get(username=decoded_token["username"]))
                 search_key=""
                 similar_id=[]
+                if len(user_searches)==0:
+                   return render(request,"index.html",{"recommended":0})
                 if len(user_searches)>10:
                    user_searches=user_searches[len(user_searches)-10:len(user_searches)]
                 for i in user_searches:
@@ -80,7 +82,7 @@ def login(request):
                     for i in similar_id:
                         objs.append(product.objects.get(pid=i))
                     count=len(ucart.objects.filter(cartref=user.objects.get(username=decoded_token["username"])))
-                    response=render(request,'index.html',{"objs": objs,"count":count})
+                    response=render(request,'index.html',{"objs": objs,"count":count,"recommended":1})
                 return response
           
     form=MyForm()
@@ -154,8 +156,8 @@ def signup(request):
                 'password': form.cleaned_data["password"],
                 'username': form.cleaned_data["username"],
                 'otp': otp,
-                'exp': datetime.datetime.utcnow()+datetime.timedelta(minutes=60),
-                'iat':  datetime.datetime.utcnow()
+                'exp': datetime.utcnow() + timedelta(minutes=60),
+                'iat':  datetime.utcnow()
             }
             encoded_token = jwt.encode(payload, 'secret', 'HS256')
             status=1

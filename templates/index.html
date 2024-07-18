@@ -119,6 +119,7 @@
   </div>
 </div> -->
 
+{% if recommended != 0%}
 <div class="container mt-5">
   <h2 class="mb-4">Recommended Products</h2>
   
@@ -136,87 +137,15 @@
       </div>
     </div>
     {% endfor %}
+   </div>
   </div>
-  <!-- <div class="row">
-    <div class="col-lg-3 col-md-4 mb-4">
-      <div class="card">
-        <a href="#"> <img src="https://www.reliancedigital.in/medias/OnePlus-Nord-CE2-Lite-5G-CLP-Banner-27-04-2023-Mobile.jpg?context=bWFzdGVyfGltYWdlc3w3MDUzMXxpbWFnZS9qcGVnfGltYWdlcy9oZTcvaDI0LzEwMDYzMDU0ODMxNjQ2LmpwZ3w1Mzk5Y2RmYjQzNGEwZWFlM2Y3Yzc0NTc2OGI2M2JhNDM2ODZlOTc4MjI1ZDg4YWZiOGM0MzczZmVlYzYxODhk" class="card-img-top" alt="Product 1">
-        </a>
-        <div class="card-body">
-          <h5 class="card-title">Product 1</h5>
-          <p class="card-text">Description of Product 1.</p>
-          
-        </div>
-      </div>
-    </div>
+  {% endif %}
 
-    <div class="col-lg-3 col-md-4 mb-4">
-      <div class="card">
-        <a href="#"> <img src="https://www.bigcmobiles.com/media/slidebanner/r/e/redmi_series_banner.jpg" class="card-img-top" alt="Product 1">
-        </a><div class="card-body">
-          <h5 class="card-title">Product 1</h5>
-          <p class="card-text">Description of Product 1.</p>
-          
-        </div>
-      </div>
-    </div>
-
-    <div class="col-lg-3 col-md-4 mb-4">
-      <div class="card">
-        <a href="#"> <img src="https://cdn.celekt.com/wp-content/uploads/2023/10/Samsung-Galaxy-S23-FE-Celekt-Mobiles-Mobile-Banner.jpeg" class="card-img-top" alt="Product 1">
-        </a><div class="card-body">
-          <h5 class="card-title">Product 1</h5>
-          <p class="card-text">Description of Product 1.</p>
-          
-        </div>
-      </div>
-    </div>
-
-    <div class="col-lg-3 col-md-4 mb-4">
-      <div class="card">
-        <a href="#"> <img src="https://cdn.celekt.com/wp-content/uploads/2023/10/Vivo-V29-Series-Celekt-Mobiles-Mobile-Banner.jpeg" class="card-img-top" alt="Product 1">
-        </a><div class="card-body">
-          <h5 class="card-title">Product 2</h5>
-          <p class="card-text">Description of Product 2.</p>
-         
-        </div>
-      </div>
-    </div>
-
-    <div class="col-lg-3 col-md-4 mb-4">
-      <div class="card">
-        <a href="#"> <img src="https://m.media-amazon.com/images/G/31/img21/Wireless/ITELTILESPHASE3F/D86618544_WLD_BAU_MotorolaKv_40ultra_1400x800._SX414_QL85_.jpg" class="card-img-top" alt="Product 1">
-        </a><div class="card-body">
-          <h5 class="card-title">Product 3</h5>
-          <p class="card-text">Description of Product 3.</p>
-        
-        </div>
-      </div>
-    </div>
-
-    <div class="col-lg-3 col-md-4 mb-4">
-      <div class="card">
-        <a href="#"> <img src="https://m.media-amazon.com/images/G/31/img23/Wireless/nbshagun/BAU/CatHero/D81072334_SIM_1400x800_4._SX414_QL85_.jpg" class="card-img-top" alt="Product 1">
-        </a><div class="card-body">
-          <h5 class="card-title">Product 4</h5>
-          <p class="card-text">Description of Product 4.</p>
-          
-        </div>
-      </div>
-    </div>
-
-    <div class="col-lg-3 col-md-4 mb-4">
-      <div class="card">
-        <a href="#"> <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBiEZ02F9_pp19wMbgxZuAj9ZDJ8OHU7b3ZQ&usqp=CAU" class="card-img-top" alt="Product 1">
-        </a><div class="card-body">
-          <h5 class="card-title">Product 5</h5>
-          <p class="card-text">Description of Product 5.</p>
-        </div>
-      </div>
-    </div>
+  {% if recommended == 0%}
+  <div class="container mt-5">
+    <h2 class="mb-4">Welcome To B-Cart</h2>
   </div>
-</div> -->
-
+  {% endif %}
 <div class="footer">
   <div class="container">
     <p>&copy; 2023 E-Buy. All Rights Reserved.</p>
